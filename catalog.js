@@ -204,6 +204,9 @@ window.CATALOG = {
       "week": "2026-09-07",
       "items": [
         {
+          "text": "The app in the frame now runs on the restructured base, with sort, applied-filter chips, saved views, quick filters and the three buckets rebuilt on it."
+        },
+        {
           "text": "The release slot for this work moved out by two weeks."
         }
       ]
