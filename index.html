@@ -212,8 +212,11 @@
   document.getElementById('headline').textContent = ME ? I.headline : C.project.headline;
   document.getElementById('formal').textContent = C.project.formal;
   const frame = document.getElementById('frame');
-  frame.src = C.project.app.url;
-  document.getElementById('fullscreen').href = C.project.app.url;
+  // Opened as a local file (the maintainer's internal view), the bundled app cannot load from file://,
+  // so the frame pulls the same build from the live site instead.
+  const appUrl = location.protocol === 'file:' && C.project.app.liveUrl ? C.project.app.liveUrl : C.project.app.url;
+  frame.src = appUrl;
+  document.getElementById('fullscreen').href = appUrl;
   document.getElementById('now').textContent = C.project.app.label;
 
   const ms = document.getElementById('milestones');
@@ -278,7 +281,7 @@
   function open(f) {
     selected = selected === f.id ? null : f.id;
     if (selected && f.route) {
-      frame.src = C.project.app.url + '#' + f.route;
+      frame.src = appUrl + '#' + f.route;
       if (small.matches) document.getElementById('app').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     render();

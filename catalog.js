@@ -10,6 +10,7 @@ window.CATALOG = {
     "scope": "Filters and saved views, creating tickets, and sign-in policy, coming to the admin app.",
     "app": {
       "url": "app/",
+      "liveUrl": "https://tsuba-onflo.github.io/onflo-mobile-dashboard/app/",
       "label": "Design prototype (mock data)"
     },
     "milestones": [
