@@ -16,11 +16,11 @@ window.CATALOG = {
     "milestones": [
       {
         "name": "UAT",
-        "date": "2026-10-09"
+        "date": "2026-10-23"
       },
       {
         "name": "Go live",
-        "date": "2026-10-31"
+        "date": "2026-11-14"
       }
     ],
     "formal": "The formal roadmap is Productboard, board Onflo Release Plan."
@@ -200,6 +200,14 @@ window.CATALOG = {
     }
   ],
   "updates": [
+    {
+      "week": "2026-09-07",
+      "items": [
+        {
+          "text": "The release slot for this work moved out by two weeks."
+        }
+      ]
+    },
     {
       "week": "2026-09-06",
       "items": [
