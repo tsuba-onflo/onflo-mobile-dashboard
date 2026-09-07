@@ -44,11 +44,14 @@
   /* the phone */
   .phone-wrap { position: sticky; top: 1.25rem; }
   .phone-scale { margin: 0 auto; }
-  .phone { width: 414px; height: 896px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px; box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
+  .phone { width: 414px; height: 916px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px; box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
   /* A blank status strip carries the notch, so the cutout never covers the app. The app itself has shallow corners and draws to its edges. */
-  .phone .statusbar { position: relative; height: 28px; background: #fff; border-radius: 34px 34px 0 0; }
+  /* Screen corners are concentric with the bezel: 44px outer minus the 12px rim = 32px. */
+  .phone .statusbar { position: relative; height: 28px; background: #fff; border-radius: 32px 32px 0 0; }
+  .phone .chin { height: 20px; background: #fff; border-radius: 0 0 32px 32px; position: relative; }
+  .phone .chin::after { content: ''; position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 120px; height: 5px; border-radius: 3px; background: #111; }
   .phone .statusbar::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 24px; background: #111; border-radius: 0 0 16px 16px; }
-  .phone iframe { width: 100%; height: calc(100% - 28px); border: 0; border-radius: 0 0 14px 14px; background: #fff; display: block; }
+  .phone iframe { width: 100%; height: calc(100% - 48px); border: 0; border-radius: 0; background: #fff; display: block; }
   .phone-meta { display: flex; justify-content: space-between; align-items: baseline; margin: .8rem .5rem 0; font-size: .85rem; color: var(--ink-2); }
   .phone-meta .now { color: var(--ink); font-weight: 550; }
 
@@ -142,7 +145,7 @@
     .phone-scale { width: auto !important; height: auto !important; margin: 0 -1rem; }
     .phone { width: 100% !important; height: 78vh; transform: none !important; padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
     .phone iframe { border-radius: 0; height: 100%; }
-    .phone .statusbar { display: none; }
+    .phone .statusbar, .phone .chin { display: none; }
     .phone-meta { margin: .5rem 0 0; }
     .milestones { flex-wrap: wrap; }
     body:not(.me) .grid { gap: 1.5rem; }
@@ -163,7 +166,7 @@
       <div class="milestones" id="milestones"></div>
     </section>
     <aside class="phone-wrap" id="app">
-      <div class="phone-scale" id="phoneScale"><div class="phone"><div class="statusbar"></div><iframe id="frame" title="Onflo mobile prototype" allow="clipboard-write"></iframe></div></div>
+      <div class="phone-scale" id="phoneScale"><div class="phone"><div class="statusbar"></div><iframe id="frame" title="Onflo mobile prototype" allow="clipboard-write"></iframe><div class="chin"></div></div></div>
       <div class="phone-meta"><span class="now" id="now">Prototype, mock data</span><a id="fullscreen" target="_blank" rel="noopener">Open full size</a></div>
     </aside>
 
@@ -326,7 +329,7 @@
   const scaleBox = document.getElementById('phoneScale');
   function fitPhone() {
     if (small.matches) { scaleBox.removeAttribute('style'); scaleBox.firstElementChild.removeAttribute('style'); return; }
-    const W = 414, H = 896;
+    const W = 414, H = 916;
     const wrap = scaleBox.parentElement;
     const caption = wrap.querySelector('.phone-meta');
     const top = parseFloat(getComputedStyle(wrap).top) || 0;           // sticky offset = space above the phone
