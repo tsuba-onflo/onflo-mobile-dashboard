@@ -8,13 +8,13 @@
   :root {
     --bg: #f5f5f7; --surface: #ffffff; --ink: #1d1d1f; --ink-2: #6e6e73; --line: #e5e5ea;
     --accent: #0a66c2; --in-app: #1e8e3e; --building: #c26a00; --planned: #6e6e73; --web-only: #8e8e93;
-    --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); --bezel-edge: #111;
+    --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); --bezel-edge: #111; --screen: #F6F6F6; /* design system surfaceDefault, the app floor */
     color-scheme: light dark;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #000; --surface: #1c1c1e; --ink: #f5f5f7; --ink-2: #98989d; --line: #2c2c2e;
       --accent: #4c9aff; --in-app: #30d158; --building: #ff9f0a; --planned: #98989d; --web-only: #8e8e93;
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4); --bezel-edge: #3a3a3c; }
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4); --bezel-edge: #3a3a3c; --screen: #131416; }
   }
   * { box-sizing: border-box; }
   html { font: 100%/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
@@ -47,11 +47,11 @@
   .phone { width: 414px; height: 916px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px; box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
   /* A blank status strip carries the notch, so the cutout never covers the app. The app itself has shallow corners and draws to its edges. */
   /* Screen corners are concentric with the bezel: 44px outer minus the 12px rim = 32px. */
-  .phone .statusbar { position: relative; height: 28px; background: #fff; border-radius: 32px 32px 0 0; }
-  .phone .chin { height: 20px; background: #fff; border-radius: 0 0 32px 32px; position: relative; }
-  .phone .chin::after { content: ''; position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 120px; height: 5px; border-radius: 3px; background: #111; }
+  .phone .statusbar { position: relative; height: 28px; background: var(--screen); border-radius: 32px 32px 0 0; }
+  .phone .chin { height: 20px; background: var(--screen); border-radius: 0 0 32px 32px; position: relative; }
+  .phone .chin::after { content: ''; position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 120px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--screen) 30%, #888); }
   .phone .statusbar::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 24px; background: #111; border-radius: 0 0 16px 16px; }
-  .phone iframe { width: 100%; height: calc(100% - 48px); border: 0; border-radius: 0; background: #fff; display: block; }
+  .phone iframe { width: 100%; height: calc(100% - 48px); border: 0; border-radius: 0; background: var(--screen); display: block; }
   .phone-meta { display: flex; justify-content: space-between; align-items: baseline; margin: .8rem .5rem 0; font-size: .85rem; color: var(--ink-2); }
   .phone-meta .now { color: var(--ink); font-weight: 550; }
 
