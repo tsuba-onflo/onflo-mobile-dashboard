@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onflo Mobile</title>
+<style>
+  :root {
+    --bg: #f5f5f7; --surface: #ffffff; --ink: #1d1d1f; --ink-2: #6e6e73; --line: #e5e5ea;
+    --accent: #0a66c2; --in-app: #1e8e3e; --building: #c26a00; --planned: #6e6e73; --web-only: #8e8e93;
+    --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); --bezel-edge: #111;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #000; --surface: #1c1c1e; --ink: #f5f5f7; --ink-2: #98989d; --line: #2c2c2e;
+      --accent: #4c9aff; --in-app: #30d158; --building: #ff9f0a; --planned: #98989d; --web-only: #8e8e93;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4); --bezel-edge: #3a3a3c; }
+  }
+  * { box-sizing: border-box; }
+  html { font: 100%/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--ink); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; }
+
+  .me-flag { font-size: .7rem; padding: .15rem .55rem; border-radius: 999px; background: var(--building); color: #fff; display: none; vertical-align: middle; letter-spacing: .02em; font-weight: 600; }
+  body.me .me-flag { display: inline-block; }
+
+  main { max-width: 1280px; margin: 0 auto; padding: 1.25rem 1.5rem 4rem; }
+
+  .hero { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 .4rem; font-weight: 700; }
+  .hero p { margin: 0; color: var(--ink-2); font-size: 1.05rem; max-width: 56ch; }
+  .milestones { display: flex; gap: 1rem; }
+  .ms { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: .8rem 1.1rem; min-width: 9.5rem; box-shadow: var(--shadow); }
+  .ms .k { font-size: .78rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+  .ms .v { font-weight: 650; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .ms .d { font-size: .82rem; color: var(--ink-2); }
+
+  .grid { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; grid-template-areas: "phone hero" "phone features"; gap: 0 2rem; align-items: start; }
+  .hero { grid-area: hero; } .phone-wrap { grid-area: phone; } #features { grid-area: features; }
+  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; grid-template-areas: "hero" "phone" "features"; } .grid .phone-wrap { position: static; margin-bottom: 1.5rem; } }  /* one column: headline, then the app, then the list */
+
+  /* the phone */
+  .phone-wrap { position: sticky; top: 1.25rem; }
+  .phone-scale { margin: 0 auto; }
+  .phone { width: 414px; height: 896px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px; box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
+  /* A blank status strip carries the notch, so the cutout never covers the app. The app itself has shallow corners and draws to its edges. */
+  .phone .statusbar { position: relative; height: 28px; background: #fff; border-radius: 34px 34px 0 0; }
+  .phone .statusbar::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 24px; background: #111; border-radius: 0 0 16px 16px; }
+  .phone iframe { width: 100%; height: calc(100% - 28px); border: 0; border-radius: 0 0 14px 14px; background: #fff; display: block; }
+  .phone-meta { display: flex; justify-content: space-between; align-items: baseline; margin: .8rem .5rem 0; font-size: .85rem; color: var(--ink-2); }
+  .phone-meta .now { color: var(--ink); font-weight: 550; }
+
+  /* feature list */
+  .section-title { display: flex; align-items: baseline; gap: .7rem; margin: 0 0 .8rem; }
+  .section-title h2 { font-size: 1.15rem; margin: 0; letter-spacing: -0.01em; font-weight: 650; }
+  .section-title .count { color: var(--ink-2); font-size: .9rem; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .group { margin-bottom: 1.8rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .8rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: .9rem 1rem; text-align: left; cursor: pointer; width: 100%; display: block;
+    box-shadow: var(--shadow); transition: transform 120ms ease-out, border-color 120ms ease-out; }
+  .card:active { transform: scale(.985); }
+  .card[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent), var(--shadow); }
+  .card .area { font-size: .75rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  .card .name { font-weight: 600; margin: .15rem 0 .3rem; letter-spacing: -0.005em; }
+  .card .sum { font-size: .9rem; color: var(--ink-2); margin: 0; }
+  .card .internal { display: none; margin-top: .6rem; padding-top: .6rem; border-top: 1px dashed var(--line); font-size: .82rem; color: var(--ink-2); }
+  body.me .card .internal { display: block; }
+  .card .internal b { color: var(--ink); font-weight: 600; }
+  .card .internal .blk { color: #c0392b; }
+  .modes { display: inline-flex; background: color-mix(in srgb, var(--ink) 8%, transparent); border-radius: 12px; padding: 3px; margin-bottom: 1rem; }
+  .mode { border: 0; background: transparent; border-radius: 9px; padding: .4rem 1rem; cursor: pointer; font-size: .92rem; color: var(--ink-2); transition: background 120ms ease-out, color 120ms ease-out; }
+  .mode[aria-pressed="true"] { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .mode:active { transform: scale(.97); }
+  .mode .n { color: var(--ink-2); font-weight: 450; font-size: .8rem; margin-left: .3rem; }
+  .filters { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.4rem; }
+  .chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: .3rem .8rem; font-size: .85rem; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  /* detail panel */
+  .detail { flex-basis: 100%; width: 100%; order: 3; margin-top: .7rem; padding-top: .7rem; border-top: 1px solid var(--line); cursor: default; }
+  .card[aria-pressed="true"] { grid-column: 1 / -1; }
+  .detail p { margin: .3rem 0; }
+  .detail .muted { color: var(--ink-2); font-size: .9rem; }
+  .detail video { width: 100%; border-radius: 10px; margin-top: .6rem; background: #000; }
+  .detail .close { float: right; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; font-size: 1.1rem; }
+
+  /* updates */
+  .updates { margin-top: 2.5rem; }
+  .week { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; padding: .9rem 0; border-top: 1px solid var(--line); }
+  .week .when { color: var(--ink-2); font-size: .9rem; }
+  .week ul { margin: 0; padding-left: 1.1rem; }
+  .week li { margin-bottom: .3rem; }
+  .week .note { display: none; color: var(--ink-2); font-size: .85rem; }
+  body.me .week .note { display: block; }
+
+  footer { max-width: 1280px; margin: 0 auto; padding: 1.5rem; color: var(--ink-2); font-size: .85rem; border-top: 1px solid var(--line); }
+
+  /* ---- visitor view: the app is the subject, words step back ---- */
+  body:not(.me) .hero { grid-template-columns: 1fr; gap: .4rem; margin-bottom: 1.6rem; align-items: baseline; }
+  body:not(.me) .hero h1 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0; }
+  body:not(.me) .hero p { font-size: .98rem; }
+  body:not(.me) .milestones { display: none; }
+  body:not(.me) .ms { background: transparent; border: 0; box-shadow: none; padding: 0; min-width: 0; display: flex; gap: .45rem; align-items: baseline; }
+  body:not(.me) .ms .k { font-size: .75rem; }
+  body:not(.me) .ms .v { font-size: .95rem; }
+  body:not(.me) .ms .d { display: none; }
+  body:not(.me) .grid { grid-template-columns: minmax(0, 1fr) 400px; gap: 0 3rem; }
+  body:not(.me) .phone-wrap { justify-self: stretch; }
+  body:not(.me) .phone-meta { justify-content: center; gap: 1rem; }
+  body:not(.me) .filters { display: none; }
+  body:not(.me) .section-title { margin: .2rem 0 .4rem; }
+  body:not(.me) .section-title h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; }
+  body:not(.me) .section-title .count { display: none; }
+  body:not(.me) .status-dot { width: 7px; height: 7px; }
+  body:not(.me) .group { margin-bottom: 1.3rem; }
+  body:not(.me) .cards { display: block; }
+  body:not(.me) .card { border-radius: 10px; padding: .6rem .85rem; margin-bottom: .35rem; box-shadow: none; display: flex; align-items: baseline; gap: .6rem; }
+  body:not(.me) .card:hover { border-color: color-mix(in srgb, var(--ink) 25%, transparent); }
+  body:not(.me) .card .area { order: 2; margin-left: auto; font-size: .68rem; white-space: nowrap; }
+  body:not(.me) .card .name { margin: 0; font-weight: 550; font-size: .95rem; flex: 1 1 0; min-width: 0; }
+  body:not(.me) .card .sum { display: none; }
+  body:not(.me) .detail { margin-top: .5rem; padding-top: .55rem; }
+  body:not(.me) .card { flex-wrap: wrap; }
+  body:not(.me) .detail p { font-size: .92rem; }
+  body:not(.me) .updates { margin-top: 1.8rem; }
+  body:not(.me) .updates .section-title h2 { text-transform: none; letter-spacing: 0; font-size: .95rem; color: var(--ink); }
+  body:not(.me) .updates .count { display: none; }
+  body:not(.me) .week { grid-template-columns: 1fr; gap: .2rem; padding: .5rem 0; border-top: 0; }
+  body:not(.me) .week .when { font-size: .78rem; }
+  body:not(.me) .week li { font-size: .9rem; color: var(--ink-2); }
+  body:not(.me) .week.older { display: none; }
+  body:not(.me) .more-updates { border: 0; background: transparent; color: var(--accent); cursor: pointer; padding: .3rem 0; font-size: .88rem; }
+  body.me .more-updates { display: none; }
+  @media (max-width: 1100px) { body:not(.me) .grid { grid-template-columns: 1fr; grid-template-areas: "hero" "phone" "features"; } body:not(.me) .phone-wrap { position: static; margin-bottom: 1.5rem; } }
+  @media (max-width: 640px) {
+    /* On an actual phone there is no bezel: the app runs edge to edge at the real screen width. */
+    main { padding: 1rem 1rem 3rem; }
+    .phone-wrap { position: static; }
+    .phone-scale { width: auto !important; height: auto !important; margin: 0 -1rem; }
+    .phone { width: 100% !important; height: 78vh; transform: none !important; padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
+    .phone iframe { border-radius: 0; height: 100%; }
+    .phone .statusbar { display: none; }
+    .phone-meta { margin: .5rem 0 0; }
+    .milestones { flex-wrap: wrap; }
+    body:not(.me) .grid { gap: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+</head>
+<body>
+
+<main>
+
+  <div class="grid">
+    <section class="hero" id="hero">
+      <div>
+        <h1><span id="headline"></span> <span class="me-flag">internal view</span></h1>
+        <p id="scope"></p>
+      </div>
+      <div class="milestones" id="milestones"></div>
+    </section>
+    <aside class="phone-wrap" id="app">
+      <div class="phone-scale" id="phoneScale"><div class="phone"><div class="statusbar"></div><iframe id="frame" title="Onflo mobile prototype" allow="clipboard-write"></iframe></div></div>
+      <div class="phone-meta"><span class="now" id="now">Prototype, mock data</span><a id="fullscreen" target="_blank" rel="noopener">Open full size</a></div>
+    </aside>
+
+    <section id="features">
+      <div class="modes" id="modes" role="group" aria-label="What to show"></div>
+      <div class="filters" id="areaChips"></div>
+      <div id="groups"></div>
+
+      <div class="updates" id="updates">
+        <div class="section-title"><h2>Updates</h2><span class="count">newest first</span></div>
+        <div id="weeks"></div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="formal"></footer>
+
+<script src="catalog.js"></script>
+<!-- internal.js exists only on the maintainer's machine. It is never copied into a published build,
+     so the internal view cannot be reached from the public site by any URL. -->
+<script src="internal.js"></script>
+<script>
+(function () {
+  const C = window.CATALOG;
+  const small = matchMedia('(max-width: 640px)');
+  // ?visitor previews the public view on the maintainer's machine. It only hides; the public build has nothing to hide.
+  const I = /[?&]visitor\b/.test(location.search) ? null : (window.INTERNAL || null);
+  const ME = !!I;
+  if (ME) {
+    document.body.classList.add('me');
+    C.features.forEach(f => Object.assign(f, I.features[f.id] || {}));
+    C.updates.forEach(w => { const notes = I.updates[w.week]; if (notes) w.items.forEach((it, i) => { if (notes[i]) it.note = notes[i]; }); });
+  }
+
+  const STATUS = {
+    'in-app':   { label: 'In the app today', color: 'var(--in-app)' },
+    'building': { label: 'In progress',      color: 'var(--building)' },
+    'planned':  { label: 'Coming soon',      color: 'var(--planned)' },
+    'web-only': { label: 'Stays on the web', color: 'var(--web-only)' }
+  };
+  const el = (t, a = {}, ...kids) => { const n = document.createElement(t); for (const k in a) k === 'text' ? n.textContent = a[k] : n.setAttribute(k, a[k]); n.append(...kids); return n; };
+  const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const daysOut = d => Math.ceil((new Date(d + 'T00:00:00') - new Date().setHours(0,0,0,0)) / 864e5);
+
+  document.getElementById('scope').textContent = C.project.scope;
+  document.getElementById('headline').textContent = ME ? I.headline : C.project.headline;
+  document.getElementById('formal').textContent = C.project.formal;
+  const frame = document.getElementById('frame');
+  frame.src = C.project.app.url;
+  document.getElementById('fullscreen').href = C.project.app.url;
+  document.getElementById('now').textContent = C.project.app.label;
+
+  const ms = document.getElementById('milestones');
+  C.project.milestones.forEach(m => {
+    const n = daysOut(m.date);
+    ms.append(el('div', { class: 'ms' }, el('div', { class: 'k', text: m.name }), el('div', { class: 'v', text: fmt(m.date) }), el('div', { class: 'd', text: n >= 0 ? n + ' days out' : Math.abs(n) + ' days ago' })));
+  });
+
+  // Modes: which status groups are on screen. Kept in the URL (?mode=) so a link opens in the right one.
+  const MODES = [
+    { key: 'current',  label: 'Current',     statuses: ['in-app'] },
+    { key: 'progress', label: 'In progress', statuses: ['building', 'planned'] },
+    { key: 'all',      label: 'All',         statuses: ['in-app', 'building', 'planned', 'web-only'] }
+  ];
+  const params = new URLSearchParams(location.search);
+  let mode = MODES.find(m => m.key === params.get('mode')) || MODES[0];
+  let area = null, selected = null;
+
+  const modesEl = document.getElementById('modes');
+  MODES.forEach(m => {
+    const n = C.features.filter(f => m.statuses.includes(f.status)).length;
+    const b = el('button', { class: 'mode', 'aria-pressed': String(m === mode), text: m.label }, el('span', { class: 'n', text: String(n) }));
+    b.onclick = () => {
+      mode = m; selected = null;
+      const p = new URLSearchParams(location.search); p.set('mode', m.key);
+      history.replaceState(null, '', '?' + p.toString() + location.hash);
+      render();
+    };
+    modesEl.append(b);
+  });
+
+  const chips = document.getElementById('areaChips');
+  const allChip = el('button', { class: 'chip', 'aria-pressed': 'true', text: 'All areas' });
+  allChip.onclick = () => { area = null; render(); };
+  chips.append(allChip);
+  C.areas.forEach(a => { const b = el('button', { class: 'chip', 'aria-pressed': 'false', text: a }); b.onclick = () => { area = a; render(); }; chips.append(b); });
+
+  function internalBlock(f) {
+    const parts = [];
+    if (f.owner) parts.push(el('div', {}, el('b', { text: 'Owner ' }), document.createTextNode(f.owner)));
+    if (f.branch) parts.push(el('div', {}, el('b', { text: 'Branch ' }), document.createTextNode(f.branch)));
+    if (f.review) parts.push(el('div', {}, el('b', { text: 'Review ' }), document.createTextNode(f.review)));
+    if (f.dates) parts.push(el('div', {}, el('b', { text: 'When ' }), document.createTextNode(f.dates)));
+    if (f.blocker) parts.push(el('div', { class: 'blk' }, el('b', { text: 'Blocker ' }), document.createTextNode(f.blocker)));
+    if (f.asks) parts.push(el('div', {}, el('b', { text: 'Ask ' }), document.createTextNode(f.asks)));
+    if (f.notes) parts.push(el('div', {}, el('b', { text: 'Note ' }), document.createTextNode(f.notes)));
+    return el('div', { class: 'internal' }, ...parts);
+  }
+
+  function detailFor(f) {
+    const d = el('div', { class: 'detail' });
+    const close = el('button', { class: 'close', 'aria-label': 'Close', text: '×' }); close.onclick = (e) => { e.stopPropagation(); selected = null; render(); };
+    d.append(close, el('p', { text: f.summary }));
+    if (f.route) d.append(el('p', { class: 'muted', text: 'The prototype has jumped to this screen.' }));
+    else if (f.clip) d.append(el('video', { src: 'clips/' + f.clip, controls: '', playsinline: '' }));
+    else if (ME && f.screen) d.append(el('p', { class: 'muted', text: 'Designed screen: ' + f.screen + '. Deep link once the prototype has routes.' }));
+    else if (ME) d.append(el('p', { class: 'muted', text: 'No screen or clip yet.' }));
+    if (ME) d.append(internalBlock(f));
+    return d;
+  }
+
+  function open(f) {
+    selected = selected === f.id ? null : f.id;
+    if (selected && f.route) {
+      frame.src = C.project.app.url + '#' + f.route;
+      if (small.matches) document.getElementById('app').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    render();
+  }
+
+  function render() {
+    modesEl.querySelectorAll('.mode').forEach((b, i) => b.setAttribute('aria-pressed', String(MODES[i] === mode)));
+    chips.querySelectorAll('.chip').forEach((c, i) => c.setAttribute('aria-pressed', String(i === 0 ? area === null : c.textContent === area)));
+    const g = document.getElementById('groups'); g.innerHTML = '';
+    for (const key of mode.statuses) {
+      const list = C.features.filter(f => f.status === key && (!area || f.area === area));
+      if (!list.length) continue;
+      const cards = el('div', { class: 'cards' });
+      list.forEach(f => {
+        const card = el('div', { class: 'card', role: 'button', tabindex: '0', 'aria-pressed': String(f.id === selected) },
+          el('div', { class: 'area', text: f.area }), el('div', { class: 'name', text: f.name }), el('p', { class: 'sum', text: f.summary }), internalBlock(f));
+        card.onclick = () => open(f);
+        card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(f); } };
+        if (f.id === selected) { const d = detailFor(f); d.onclick = (e) => e.stopPropagation(); card.append(d); }
+        cards.append(card);
+      });
+      const dot = el('span', { class: 'status-dot' }); dot.style.background = STATUS[key].color;
+      g.append(el('div', { class: 'group' }, el('div', { class: 'section-title' }, dot, el('h2', { text: STATUS[key].label }), el('span', { class: 'count', text: String(list.length) })), cards));
+    }
+  }
+
+  const weeks = document.getElementById('weeks');
+  C.updates.forEach((w, idx) => {
+    const ul = el('ul');
+    w.items.forEach(i => { const li = el('li', { text: i.text }); if (i.note) li.append(el('div', { class: 'note', text: i.note })); ul.append(li); });
+    weeks.append(el('div', { class: 'week' + (idx ? ' older' : '') }, el('div', { class: 'when', text: fmt(w.week) }), ul));
+  });
+  if (C.updates.length > 1) {
+    const more = el('button', { class: 'more-updates', text: 'Earlier updates' });
+    more.onclick = () => { weeks.querySelectorAll('.week.older').forEach(w => w.classList.remove('older')); more.remove(); };
+    weeks.append(more);
+  }
+
+  // The app inside the iframe always sees a 390 x 844 screen (iPhone-class logical size). To fit the
+  // window we scale the picture, never the app's own layout. Layout height is set explicitly because
+  // transforms don't take up space.
+  const scaleBox = document.getElementById('phoneScale');
+  function fitPhone() {
+    if (small.matches) { scaleBox.removeAttribute('style'); scaleBox.firstElementChild.removeAttribute('style'); return; }
+    const W = 414, H = 896;
+    const wrap = scaleBox.parentElement;
+    const caption = wrap.querySelector('.phone-meta');
+    const top = parseFloat(getComputedStyle(wrap).top) || 0;           // sticky offset = space above the phone
+    const below = (caption ? caption.offsetHeight + 14 : 0) + 20;       // caption + its margin + breathing room
+    const col = wrap.clientWidth || W;
+    // Fill the window height (up to 1.4x for crispness), never wider than the column. Below 0.8 the app
+    // gets too small to read, so hold 0.75 and let the phone scroll with the page instead of pinning.
+    let s = Math.min(1.4, (innerHeight - top - below) / H, col / W);
+    if (s < 0.75) { s = Math.min(0.75, col / W); wrap.style.position = 'static'; } else wrap.style.position = '';
+    scaleBox.firstElementChild.style.transform = 'scale(' + s.toFixed(4) + ')';
+    scaleBox.style.height = Math.round(H * s) + 'px';
+    scaleBox.style.width = Math.round(W * s) + 'px';
+  }
+  // Re-fit on any change to the window or to the column itself (the grid collapsing to one column
+  // changes the column width without a second resize event).
+  let raf = 0; const queueFit = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(fitPhone); };
+  addEventListener('resize', queueFit); addEventListener('load', queueFit); small.addEventListener('change', queueFit);
+  if ('ResizeObserver' in window) new ResizeObserver(queueFit).observe(scaleBox.parentElement);
+  fitPhone();
+
+  render();
+})();
+</script>
+</body>
+</html>
