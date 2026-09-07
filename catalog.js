@@ -203,7 +203,7 @@ window.CATALOG = {
       "week": "2026-09-06",
       "items": [
         {
-          "text": "Rebecca rewired the design prototype: one mock dataset, stores, typed navigation. Our four branches rebuild on top."
+          "text": "The design prototype was restructured on a shared data model. Our work is being rebuilt on the new base."
         },
         {
           "text": "This page: the mobile project's front door, with the prototype embedded."
