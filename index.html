@@ -44,7 +44,7 @@
   /* the phone */
   .phone-wrap { position: sticky; top: 1.25rem; }
   .phone-scale { margin: 0 auto; }
-  .phone { width: 414px; height: 934px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px 11px 29px;  /* longer bezel below the screen */ box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
+  .phone { width: 414px; height: 925px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px 11px 20px;  /* longer bezel below the screen */ box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
   /* A blank status strip carries the notch, so the cutout never covers the app. The app itself has shallow corners and draws to its edges. */
   /* Screen corners are concentric with the bezel: 44px outer minus the 12px rim = 32px. */
   .phone .statusbar { position: relative; height: 28px; background: var(--screen); border-radius: 32px 32px 0 0; }
@@ -329,7 +329,7 @@
   const scaleBox = document.getElementById('phoneScale');
   function fitPhone() {
     if (small.matches) { scaleBox.removeAttribute('style'); scaleBox.firstElementChild.removeAttribute('style'); return; }
-    const W = 414, H = 934;
+    const W = 414, H = 925;
     const wrap = scaleBox.parentElement;
     const caption = wrap.querySelector('.phone-meta');
     const top = parseFloat(getComputedStyle(wrap).top) || 0;           // sticky offset = space above the phone
