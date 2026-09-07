@@ -44,13 +44,14 @@
   /* the phone */
   .phone-wrap { position: sticky; top: 1.25rem; }
   .phone-scale { margin: 0 auto; }
-  .phone { width: 414px; height: 916px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px; box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
+  .phone { width: 414px; height: 934px; transform-origin: top left; border-radius: 44px; background: #111; border: 1px solid var(--bezel-edge); padding: 11px 11px 29px;  /* longer bezel below the screen */ box-shadow: var(--shadow), 0 30px 60px rgba(0,0,0,.25); position: relative; }
   /* A blank status strip carries the notch, so the cutout never covers the app. The app itself has shallow corners and draws to its edges. */
   /* Screen corners are concentric with the bezel: 44px outer minus the 12px rim = 32px. */
-  /* The bezel is thicker at the top and bottom than at the sides; the screen sits square between. */
-  .phone .statusbar { height: 28px; background: #111; }
-  .phone .chin { height: 20px; background: #111; }
-  .phone iframe { width: 100%; height: calc(100% - 48px); border: 0; border-radius: 6px; background: var(--screen); display: block; }
+  .phone .statusbar { position: relative; height: 28px; background: var(--screen); border-radius: 32px 32px 0 0; }
+  .phone .chin { height: 20px; background: var(--screen); border-radius: 0 0 32px 32px; position: relative; }
+  .phone .chin::after { content: ''; position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 120px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--screen) 30%, #888); }
+  .phone .statusbar::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 24px; background: #111; border-radius: 0 0 16px 16px; }
+  .phone iframe { width: 100%; height: calc(100% - 48px); border: 0; border-radius: 0; background: var(--screen); display: block; }
   .phone-meta { display: flex; justify-content: space-between; align-items: baseline; margin: .8rem .5rem 0; font-size: .85rem; color: var(--ink-2); }
   .phone-meta .now { color: var(--ink); font-weight: 550; }
 
@@ -328,7 +329,7 @@
   const scaleBox = document.getElementById('phoneScale');
   function fitPhone() {
     if (small.matches) { scaleBox.removeAttribute('style'); scaleBox.firstElementChild.removeAttribute('style'); return; }
-    const W = 414, H = 916;
+    const W = 414, H = 934;
     const wrap = scaleBox.parentElement;
     const caption = wrap.querySelector('.phone-meta');
     const top = parseFloat(getComputedStyle(wrap).top) || 0;           // sticky offset = space above the phone
