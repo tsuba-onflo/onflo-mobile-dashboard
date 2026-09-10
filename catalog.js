@@ -120,9 +120,9 @@ window.CATALOG = {
     {
       "id": "create-flow",
       "area": "Create a ticket",
-      "name": "General form and three-step IT wizard",
-      "status": "building",
-      "summary": "Create a ticket from the phone: the general form, and the IT intake as three steps.",
+      "name": "Create ticket form; IT intake specified",
+      "status": "in-app",
+      "summary": "Create a general, global or IT ticket from one form. The three-step IT intake with the recipient lookup is written up against the product and handed to design; the screens are not built.",
       "route": null,
       "clip": null
     },
@@ -130,7 +130,7 @@ window.CATALOG = {
       "id": "vocabulary",
       "area": "Tickets",
       "name": "Product words on every screen",
-      "status": "building",
+      "status": "in-app",
       "summary": "Entry-point channel names, Advanced Search fields, Out of Office rules and password policy taken from the product, not guessed.",
       "route": null,
       "clip": null
@@ -200,6 +200,17 @@ window.CATALOG = {
     }
   ],
   "updates": [
+    {
+      "week": "2026-09-10",
+      "items": [
+        {
+          "text": "Design merged the vocabulary, the inbox filter work and the intake write-up into the prototype's main line on 8 Sep, and tuned the drawer, view switcher and Advanced Search placement on 9 Sep."
+        },
+        {
+          "text": "Create ticket uses the design team's one-form screen; the three-step IT intake stays a written spec pending a design decision."
+        }
+      ]
+    },
     {
       "week": "2026-09-07",
       "items": [
