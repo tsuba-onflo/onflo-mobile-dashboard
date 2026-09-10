@@ -193,8 +193,8 @@ window.CATALOG = {
       "id": "advanced-builder",
       "area": "Filters",
       "name": "Advanced AND / OR search builder",
-      "status": "web-only",
-      "summary": "The full boolean query builder stays on the web. The phone gets keyword Advanced Search.",
+      "status": "planned",
+      "summary": "The web's boolean query builder, brought to the phone after the October release. Keyword Advanced Search is in the app today.",
       "route": null,
       "clip": null
     }
