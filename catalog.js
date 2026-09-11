@@ -120,9 +120,9 @@ window.CATALOG = {
     {
       "id": "create-flow",
       "area": "Create a ticket",
-      "name": "Create ticket form; IT intake specified",
-      "status": "in-app",
-      "summary": "Create a general, global or IT ticket from one form. The three-step IT intake with the recipient lookup is written up against the product and handed to design; the screens are not built.",
+      "name": "Create ticket form; IT intake in three steps",
+      "status": "building",
+      "summary": "One form for general, global and IT tickets, now asking for Received From and Type as the product does. An IT ticket from the inbox first finds the person, then the topic, then opens the form locked to them. In the frame from our branch; awaiting design review before it joins the main line.",
       "route": null,
       "clip": null
     },
@@ -203,6 +203,12 @@ window.CATALOG = {
     {
       "week": "2026-09-11",
       "items": [
+        {
+          "text": "Create ticket asks for Received From and Type, and an IT ticket walks the product's three steps: find the person, pick the topic, then the form. On our branch, in the frame, awaiting design review."
+        },
+        {
+          "text": "Two filter lists corrected against the product: Action Taken now has all thirteen values; the language list follows district configuration."
+        },
         {
           "text": "The app in the frame is on the design main line as of 10 Sep: a department switcher in the drawer, Messages as its own ticket tab, the wordmark on sign-in, and a capped column on tablets."
         },
