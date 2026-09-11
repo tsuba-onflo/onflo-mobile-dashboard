@@ -201,6 +201,17 @@ window.CATALOG = {
   ],
   "updates": [
     {
+      "week": "2026-09-11",
+      "items": [
+        {
+          "text": "The app in the frame is on the design main line as of 10 Sep: a department switcher in the drawer, Messages as its own ticket tab, the wordmark on sign-in, and a capped column on tablets."
+        },
+        {
+          "text": "Design audited the ticket screens against the web. Inbox matches; ticket detail has open gaps, roles and permissions the largest."
+        }
+      ]
+    },
+    {
       "week": "2026-09-10",
       "items": [
         {
