@@ -201,6 +201,17 @@ window.CATALOG = {
   ],
   "updates": [
     {
+      "week": "2026-09-15",
+      "items": [
+        {
+          "text": "Roadmap added below: every mobile capability for the agent and customer apps, in phases. Phase 1 is the October build and is exhaustive."
+        },
+        {
+          "text": "Design merged the create-ticket changes (Received From, Type, the three-step IT intake) and the vocabulary fixes; asset bulk edit, parts and the MDM tab were designed this week."
+        }
+      ]
+    },
+    {
       "week": "2026-09-11",
       "items": [
         {
