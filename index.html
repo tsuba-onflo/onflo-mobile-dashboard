@@ -103,7 +103,9 @@
   .rm-row .issue { font-weight: 600; }
   .rm-row .plan { color: var(--ink); }
   .rm-row .plan .ph { font-weight: 600; }
-  .rm-row .by { color: var(--ink-2); font-size: .9rem; }
+  .rm-row .when .date { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .rm-row .when .by { color: var(--ink-2); font-size: .82rem; margin-top: .1rem; }
+  .rm-assume { font-size: .85rem; }
   .rm-row details { grid-column: 1 / -1; margin-top: .45rem; font-size: .88rem; }
   .rm-row summary { cursor: pointer; color: var(--accent); list-style: none; width: max-content; }
   .rm-row summary::-webkit-details-marker { display: none; }
@@ -111,9 +113,10 @@
   .rm-row details[open] summary::before { content: '\25BE'; }
   .rm-row summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
   .rm-items { margin: .5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-  .rm-items li { display: grid; grid-template-columns: 5.2rem 1fr auto; gap: 0 .8rem; padding: .35rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .rm-items li { display: grid; grid-template-columns: 5.2rem 1fr auto auto; gap: 0 .8rem; padding: .35rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
   .rm-items .ph { font-size: .74rem; font-weight: 600; white-space: nowrap; }
-  .rm-items .who { color: var(--ink-2); font-size: .82rem; white-space: nowrap; }
+  .rm-items .idate { font-size: .82rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .rm-items .who { color: var(--ink-2); font-size: .82rem; white-space: nowrap; min-width: 7rem; }
   .rm-int { grid-column: 2 / -1; display: none; color: var(--ink-2); font-size: .82rem; border-left: 2px dashed var(--line); padding-left: .6rem; margin: .1rem 0 .2rem; }
   body.me .rm-int { display: block; }
   .rm-int b { color: var(--ink); font-weight: 600; }
@@ -121,8 +124,8 @@
   @media (max-width: 900px) {
     .rm-head { display: none; }
     .rm-row { grid-template-columns: 1fr; gap: .25rem; }
-    .rm-row .by::before { content: 'Completed by: '; }
-    .rm-items li { grid-template-columns: 1fr; } .rm-items .who { white-space: normal; } .rm-int { grid-column: 1; }
+    .rm-row .when .date::before { content: 'Completed by (est.): '; font-weight: 400; color: var(--ink-2); }
+    .rm-items li { grid-template-columns: 1fr; } .rm-items .who, .rm-items .idate { white-space: normal; } .rm-int { grid-column: 1; }
   }
 
   /* updates */
@@ -220,6 +223,7 @@
   <section class="roadmap" id="roadmap">
     <div class="section-title"><h2>Roadmap</h2><span class="count" id="roadmapCount"></span></div>
     <p class="rm-lede">What is planned for each app, in the rows of the product planning sheet. <span class="rm-key"><b class="p1">Phase 1</b> the October build, exhaustive. <b class="p2">Phase 2</b> November to December. <b class="p3">Phase 3+</b> 2027, not yet designed.</span></p>
+    <p class="rm-lede rm-assume" id="roadmapAssume"></p>
     <div id="roadmapApps"></div>
   </section>
 </main>
@@ -363,6 +367,7 @@
     const CLS = { 'Phase 1': 'p1', 'Phase 2': 'p2', 'Phase 3+': 'p3', 'Done': 'done', 'Web only': 'web', 'Never': 'web' };
     const rows = RM.apps.reduce((n, a) => n + a.rows.length, 0);
     document.getElementById('roadmapCount').textContent = rows + ' rows, updated ' + fmt(RM.generated);
+    if (RM.assumption) document.getElementById('roadmapAssume').textContent = RM.assumption;
     const root = document.getElementById('roadmapApps');
     // "Phase 1." at the start of a plan is coloured; the rest is plain text.
     const planEl = (text) => {
@@ -374,13 +379,15 @@
     };
     RM.apps.forEach(a => {
       root.append(el('h3', { class: 'rm-app', text: a.name }));
-      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Issue' }), el('span', { text: 'Plan' }), el('span', { text: 'Completed by' })));
+      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Issue' }), el('span', { text: 'Plan' }), el('span', { text: 'Completed by (est.)' })));
       a.rows.forEach(r => {
-        const row = el('div', { class: 'rm-row' }, el('div', { class: 'issue', text: r.issue }), planEl(r.plan), el('div', { class: 'by', text: r.by || '' }));
+        const when = el('div', { class: 'when' }, el('div', { class: 'date', text: r.date || '' }));
+        if (r.by) when.append(el('div', { class: 'by', text: r.by }));
+        const row = el('div', { class: 'rm-row' }, el('div', { class: 'issue', text: r.issue }), planEl(r.plan), when);
         if (r.items.length) {
           const ul = el('ul', { class: 'rm-items' });
           r.items.forEach(i => {
-            const li = el('li', {}, el('span', { class: 'ph ' + (CLS[i.phase] || ''), text: i.phase }), el('span', { text: i.name }), el('span', { class: 'who', text: i.by || '' }));
+            const li = el('li', {}, el('span', { class: 'ph ' + (CLS[i.phase] || ''), text: i.phase }), el('span', { text: i.name }), el('span', { class: 'idate', text: i.date || '' }), el('span', { class: 'who', text: i.by || '' }));
             const x = RI[i.id];
             if (ME && x && (x.today || x.questions)) {
               const d = el('div', { class: 'rm-int' });
