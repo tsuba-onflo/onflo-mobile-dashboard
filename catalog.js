@@ -208,6 +208,9 @@ window.CATALOG = {
         },
         {
           "text": "Design merged the create-ticket changes (Received From, Type, the three-step IT intake) and the vocabulary fixes; asset bulk edit, parts and the MDM tab were designed this week."
+        },
+        {
+          "text": "The app in the frame is now the design main line as of 14 Sep: sign-in with Google or Microsoft, the login gate, parts, the MDM tab, bulk edit and scan confirmations. Tap Log in with Google to enter."
         }
       ]
     },
