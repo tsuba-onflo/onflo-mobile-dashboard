@@ -105,6 +105,7 @@
   .rm-row .plan .ph { font-weight: 600; }
   .rm-row .when .date { font-weight: 600; font-variant-numeric: tabular-nums; }
   .rm-row .when .by { color: var(--ink-2); font-size: .82rem; margin-top: .1rem; }
+  .rm-row .when .owner { color: var(--ink-2); font-size: .9rem; }
   .rm-assume { font-size: .85rem; }
   .rm-row details { grid-column: 1 / -1; margin-top: .45rem; font-size: .88rem; }
   .rm-row summary { cursor: pointer; color: var(--accent); list-style: none; width: max-content; }
@@ -125,6 +126,7 @@
     .rm-head { display: none; }
     .rm-row { grid-template-columns: 1fr; gap: .25rem; }
     .rm-row .when .date::before { content: 'Completed by (est.): '; font-weight: 400; color: var(--ink-2); }
+    .rm-row .when .owner::before { content: 'Owner: '; }
     .rm-items li { grid-template-columns: 1fr; } .rm-items .who, .rm-items .idate { white-space: normal; } .rm-int { grid-column: 1; }
   }
 
@@ -364,14 +366,14 @@
   (function roadmap() {
     const RM = window.ROADMAP; if (!RM) return;
     const RI = ME ? (window.ROADMAP_INTERNAL || {}) : {};
-    const CLS = { 'Phase 1': 'p1', 'Phase 2': 'p2', 'Phase 3+': 'p3', 'Done': 'done', 'Web only': 'web', 'Never': 'web' };
+    const CLS = { 'Phase 1': 'p1', 'Phase 2': 'p2', 'Phase 3+': 'p3', 'Done': 'done', 'Web only': 'web', 'Not in scope': 'web' };
     const rows = RM.apps.reduce((n, a) => n + a.rows.length, 0);
     document.getElementById('roadmapCount').textContent = rows + ' rows, updated ' + fmt(RM.generated);
     if (RM.assumption) document.getElementById('roadmapAssume').textContent = RM.assumption;
     const root = document.getElementById('roadmapApps');
     // "Phase 1." at the start of a plan is coloured; the rest is plain text.
     const planEl = (text) => {
-      const m = text.match(/^(Phase 1|Phase 2|Phase 3\+?|Today|Never)([.:])\s*/);
+      const m = text.match(/^(Phase 1|Phase 2|Phase 3\+?|Not in scope)([.:])\s*/);
       const p = el('div', { class: 'plan' });
       if (m) { const key = m[1] === 'Phase 3' ? 'Phase 3+' : m[1]; p.append(el('span', { class: 'ph ' + (CLS[key] || ''), text: m[1] + m[2] + ' ' })); p.append(document.createTextNode(text.slice(m[0].length))); }
       else p.textContent = text;
@@ -379,15 +381,18 @@
     };
     RM.apps.forEach(a => {
       root.append(el('h3', { class: 'rm-app', text: a.name }));
-      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Issue' }), el('span', { text: 'Plan' }), el('span', { text: 'Completed by (est.)' })));
+      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Item' }), el('span', { text: 'Plan' }), el('span', { text: RM.datesShown ? 'Completed by (est.)' : 'Owner' })));
       a.rows.forEach(r => {
-        const when = el('div', { class: 'when' }, el('div', { class: 'date', text: r.date || '' }));
-        if (r.by) when.append(el('div', { class: 'by', text: r.by }));
-        const row = el('div', { class: 'rm-row' }, el('div', { class: 'issue', text: r.issue }), planEl(r.plan), when);
+        const when = el('div', { class: 'when' });
+        if (RM.datesShown && r.date) when.append(el('div', { class: 'date', text: r.date }));
+        if (r.by) when.append(el('div', { class: RM.datesShown ? 'by' : 'owner', text: r.by }));
+        const row = el('div', { class: 'rm-row' }, el('div', { class: 'issue', text: r.item }), planEl(r.plan), when);
         if (r.items.length) {
           const ul = el('ul', { class: 'rm-items' });
           r.items.forEach(i => {
-            const li = el('li', {}, el('span', { class: 'ph ' + (CLS[i.phase] || ''), text: i.phase }), el('span', { text: i.name }), el('span', { class: 'idate', text: i.date || '' }), el('span', { class: 'who', text: i.by || '' }));
+            const li = el('li', {}, el('span', { class: 'ph ' + (CLS[i.phase] || ''), text: i.phase }), el('span', { text: i.name }));
+            if (RM.datesShown) li.append(el('span', { class: 'idate', text: i.date || '' }));
+            li.append(el('span', { class: 'who', text: i.by || '' }));
             const x = RI[i.id];
             if (ME && x && (x.today || x.questions)) {
               const d = el('div', { class: 'rm-int' });
