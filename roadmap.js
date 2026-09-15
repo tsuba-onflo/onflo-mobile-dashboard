@@ -2,8 +2,8 @@
 // Internal columns (today, questions) live in roadmap-internal.js, which is NEVER published.
 window.ROADMAP = {
  "generated": "2026-09-15",
- "datesShown": false,
- "assumption": "",
+ "datesShown": true,
+ "assumption": "Proposed dates, against the revised product schedule (15 Sep): September release live 17 Oct with the web API migration, October release live 14 Nov with user management. Mobile QA starts when the September release is on UAT (week of 28 Sep). Store build A follows 17 Oct, store build B follows 14 Nov, each about a week after the web goes live. Phase 2 rides the December release.",
  "phases": [
   {
    "key": "Phase 1",
@@ -43,8 +43,8 @@ window.ROADMAP = {
     {
      "id": "1",
      "item": "Updated APIs",
-     "plan": "Phase 1. Inbox and login are on the web's APIs already; the user-management and asset APIs switch this sprint; the Flutter build then replaces the native app in both stores.",
-     "date": "",
+     "plan": "Phase 1. Inbox and login are on the web's APIs already. The migrated APIs go live with the September release (17 Oct): store build A follows. User-management APIs go live with the October release (14 Nov): store build B follows. Build A replaces the native app in both stores.",
+     "date": "Build A 23 Oct 2026; build B 20 Nov 2026",
      "by": "Rony, Hassan",
      "items": [
       {
@@ -52,7 +52,7 @@ window.ROADMAP = {
        "name": "Inbox on the web's Inbox API (list, counts, search)",
        "phase": "Done",
        "plan": "Ships in the Flutter store build",
-       "date": "",
+       "date": "Done",
        "by": "Rony, Hassan"
       },
       {
@@ -60,7 +60,7 @@ window.ROADMAP = {
        "name": "Login on the ACL mobile login API (password, OTP, device auto-login)",
        "phase": "Done",
        "plan": "Ships in the Flutter store build",
-       "date": "",
+       "date": "Done",
        "by": "Rony, Hassan"
       },
       {
@@ -68,31 +68,31 @@ window.ROADMAP = {
        "name": "Old WCF service host removed",
        "phase": "Done",
        "plan": "None",
-       "date": "",
+       "date": "Done",
        "by": "Rony"
       },
       {
        "id": "1.4",
        "name": "New user-management APIs (department context, permission sets)",
        "phase": "Phase 1",
-       "plan": "Must ship with the web release or the app stops working",
-       "date": "",
+       "plan": "Ships with the October web release (14 Nov) in store build B, or the app stops working",
+       "date": "20 Nov 2026",
        "by": "Hassan, Rony"
       },
       {
        "id": "1.5",
        "name": "Asset APIs switched to the web's",
        "phase": "Phase 1",
-       "plan": "Switch over as soon as the web APIs land, then to QA",
-       "date": "",
+       "plan": "QA from the week of 28 Sep on UAT; ships in store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
        "id": "1.6",
        "name": "Flutter build replaces native in both stores (App Store 9.2.3, Play 9.2.0 today)",
        "phase": "Phase 1",
-       "plan": "Store submission after the web release goes live; Apple review 1 to 3 days",
-       "date": "",
+       "plan": "Store build A submitted after the 17 Oct web go-live; Apple review 1 to 3 days",
+       "date": "23 Oct 2026",
        "by": "Rony"
       }
      ]
@@ -100,32 +100,32 @@ window.ROADMAP = {
     {
      "id": "2",
      "item": "SSO for Mobile",
-     "plan": "Phase 1. Google and Microsoft sign-in ship in the Flutter store build; verified on a real SSO district first. Forcing SSO-only is Phase 2 and needs an owner.",
-     "date": "",
-     "by": "Rony; Tanmay verifies",
+     "plan": "Phase 1. Google and Microsoft sign-in are built; mobile QA starts when the web API migration is on UAT (week of 28 Sep). Ships in store build A, verified on a real SSO district first. Forcing SSO-only is Phase 2 and needs an owner.",
+     "date": "QA from 28 Sep; live 23 Oct 2026",
+     "by": "Rony; QA; Tanmay verifies",
      "items": [
       {
        "id": "2.1",
        "name": "Google sign-in",
        "phase": "Phase 1",
-       "plan": "Release with the Flutter store build",
-       "date": "",
-       "by": "Rony"
+       "plan": "Store build A",
+       "date": "23 Oct 2026",
+       "by": "Rony, QA"
       },
       {
        "id": "2.2",
        "name": "Microsoft (Azure) sign-in",
        "phase": "Phase 1",
-       "plan": "Release with the Flutter store build",
-       "date": "",
-       "by": "Rony"
+       "plan": "Store build A",
+       "date": "23 Oct 2026",
+       "by": "Rony, QA"
       },
       {
        "id": "2.3",
        "name": "Verify on a real SSO district before release",
        "phase": "Phase 1",
        "plan": "Get one Google and one Microsoft SSO test account; run the shipping build",
-       "date": "",
+       "date": "16 Oct 2026",
        "by": "Tanmay"
       },
       {
@@ -133,7 +133,7 @@ window.ROADMAP = {
        "name": "MFA / one-time code beside SSO",
        "phase": "Phase 1",
        "plan": "Confirm it satisfies the districts' 'SSO with MFA' wording",
-       "date": "",
+       "date": "23 Oct 2026",
        "by": "Tanmay, Keith"
       },
       {
@@ -141,7 +141,7 @@ window.ROADMAP = {
        "name": "Enforce SSO-only (block email + password for SSO districts)",
        "phase": "Phase 2",
        "plan": "Policy draft exists (8 Sep). Needs an owner and a server-side rule",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Imran or Tanmay"
       },
       {
@@ -149,7 +149,7 @@ window.ROADMAP = {
        "name": "ClassLink for agents",
        "phase": "Not in scope",
        "plan": "Not for the agent app (Keith, 10 Sep)",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]
@@ -157,16 +157,16 @@ window.ROADMAP = {
     {
      "id": "3",
      "item": "Multi-dept module capability",
-     "plan": "Phase 1. Engineering's department dropdown ships with the web release; the designed switcher UI is handed to Rizwan's team this week.",
-     "date": "",
+     "plan": "Phase 1. Engineering's department dropdown ships with the October web release (14 Nov) in store build B; the designed switcher UI is handed to Rizwan's team this week.",
+     "date": "UI handoff 18 Sep 2026; live 20 Nov 2026",
      "by": "Hassan; Tanmay, Rebecca",
      "items": [
       {
        "id": "3.1",
        "name": "Department dropdown in the drawer (eng's native version)",
        "phase": "Phase 1",
-       "plan": "Ships with the web release (required, or the app breaks)",
-       "date": "",
+       "plan": "Ships with the October web release in store build B (required, or the app breaks)",
+       "date": "20 Nov 2026",
        "by": "Hassan"
       },
       {
@@ -174,7 +174,7 @@ window.ROADMAP = {
        "name": "Module switcher UI as designed (cards in the hamburger, dark-menu variant)",
        "phase": "Phase 1",
        "plan": "Hand the UI to Rizwan's team this week so eng's dropdown matches",
-       "date": "",
+       "date": "Handoff 18 Sep 2026",
        "by": "Tanmay, Rebecca"
       },
       {
@@ -182,7 +182,7 @@ window.ROADMAP = {
        "name": "Per-module permission set shown; Assets tab only where the module has assets",
        "phase": "Phase 2",
        "plan": "Spec with the switcher",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -190,7 +190,7 @@ window.ROADMAP = {
        "name": "Inbox scoped to the module you are in",
        "phase": "Phase 2",
        "plan": "Decide before Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Rebecca, Nadeem"
       }
      ]
@@ -198,8 +198,8 @@ window.ROADMAP = {
     {
      "id": "4",
      "item": "Inbox + tickets update (tasks, fees, assets, AI?)",
-     "plan": "Phase 1. Inbox: filters, chips, sort, saved views and keyword Advanced Search, all designed and merged. Phase 2. Ticket detail: tasks, fees, parts, AI summary, presence, roles.",
-     "date": "",
+     "plan": "Phase 1. Inbox: filters, chips, sort, saved views and keyword Advanced Search, all designed and merged; spec to engineering 25 Sep, ships in store build B. Phase 2. Ticket detail: tasks, fees, parts, AI summary, presence, roles.",
+     "date": "Spec 25 Sep 2026; inbox live 20 Nov 2026; ticket detail 18 Dec 2026",
      "by": "Tanmay (spec); Rony, Hassan (build)",
      "items": [
       {
@@ -207,7 +207,7 @@ window.ROADMAP = {
        "name": "Inbox filters on the fields the API already carries (status, priority, owner, department, building, Impact On, subject, CX score)",
        "phase": "Phase 1",
        "plan": "Filters engineering spec v0.2 written 11 Sep; hand off by 25 Sep",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay"
       },
       {
@@ -215,7 +215,7 @@ window.ROADMAP = {
        "name": "Applied-filter chips, sort, live counts per view, Bookmarks / Drafts / Spam",
        "phase": "Phase 1",
        "plan": "In the same spec",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay"
       },
       {
@@ -223,7 +223,7 @@ window.ROADMAP = {
        "name": "Saved views (save, rename, delete, stored as selections; sync web and mobile)",
        "phase": "Phase 1",
        "plan": "Needs server records, not device state (item 44)",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay, Tickets team"
       },
       {
@@ -231,7 +231,7 @@ window.ROADMAP = {
        "name": "Keyword Advanced Search (legacy form) with Ticket Received and Origin",
        "phase": "Phase 1",
        "plan": "In the spec",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay"
       },
       {
@@ -239,7 +239,7 @@ window.ROADMAP = {
        "name": "Quick filters (one-tap chips) and per-view counts",
        "phase": "Phase 1",
        "plan": "In the spec",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay"
       },
       {
@@ -247,7 +247,7 @@ window.ROADMAP = {
        "name": "Filter by named building / room (ITAM tree)",
        "phase": "Phase 2",
        "plan": "After eng adds location fields to the inbox request",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Eng"
       },
       {
@@ -255,7 +255,7 @@ window.ROADMAP = {
        "name": "AND/OR advanced search builder",
        "phase": "Web only",
        "plan": "None",
-       "date": "",
+       "date": "n/a",
        "by": ""
       },
       {
@@ -263,7 +263,7 @@ window.ROADMAP = {
        "name": "Ticket details: tasks and approvals on a ticket",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -271,7 +271,7 @@ window.ROADMAP = {
        "name": "Ticket details: fees panel",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -279,7 +279,7 @@ window.ROADMAP = {
        "name": "Ticket details: parts section and linked assets picker",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -287,7 +287,7 @@ window.ROADMAP = {
        "name": "Ticket details: AI summary and AI banner alerts",
        "phase": "Phase 2",
        "plan": "After the web AI banners are live",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -295,7 +295,7 @@ window.ROADMAP = {
        "name": "Ticket details: presence (who else is on the ticket), locks, per-ticket log, SLA timer, copy link",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -303,7 +303,7 @@ window.ROADMAP = {
        "name": "Ticket details: roles and permissions gating (admin / team member / recorder)",
        "phase": "Phase 2",
        "plan": "Design pass before code",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Rebecca"
       },
       {
@@ -311,7 +311,7 @@ window.ROADMAP = {
        "name": "Body of the ticket above the fold",
        "phase": "Phase 2",
        "plan": "Redesign the detail fold",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Rebecca"
       },
       {
@@ -319,7 +319,7 @@ window.ROADMAP = {
        "name": "Create ticket: Received From and Type on the form; three-step IT intake",
        "phase": "Phase 1",
        "plan": "Ship the one-form create as is; intake steps per the create decision",
-       "date": "",
+       "date": "20 Nov 2026",
        "by": "Tanmay"
       },
       {
@@ -327,7 +327,7 @@ window.ROADMAP = {
        "name": "Proxy intake with staff-ID lookup and asset pull (Lamar row 3)",
        "phase": "Phase 2",
        "plan": "Phase 2",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay, Rebecca"
       },
       {
@@ -335,15 +335,15 @@ window.ROADMAP = {
        "name": "Schedule ticket creation",
        "phase": "Phase 3+",
        "plan": "Later",
-       "date": "",
+       "date": "2027",
        "by": ""
       },
       {
        "id": "4.18",
        "name": "Bulk actions on the inbox (multi-select)",
        "phase": "Phase 1",
-       "plan": "Regression check on the Flutter build",
-       "date": "",
+       "plan": "Regression check on store build A",
+       "date": "23 Oct 2026",
        "by": "QA"
       }
      ]
@@ -351,48 +351,48 @@ window.ROADMAP = {
     {
      "id": "5",
      "item": "Assets with core capabilities",
-     "plan": "Phase 1. Asset list, details with MDM, add, and the six operations are built and go to QA when the asset APIs land; bugs in bulk check-in/out and the 2-decimal cost fixed in the same release. Bulk edit, parts and views are Phase 2.",
-     "date": "",
+     "plan": "Phase 1. Asset list, details with MDM, add, and the six operations are built; QA once the migrated APIs are on UAT (week of 28 Sep); ships in store build A with the bulk check-in/out fixes and the 2-decimal cost. Bulk edit, parts and views are Phase 2.",
+     "date": "QA from 28 Sep; live 23 Oct 2026; Phase 2 items 18 Dec 2026",
      "by": "Rony",
      "items": [
       {
        "id": "5.1",
        "name": "Asset list, search, filters",
        "phase": "Phase 1",
-       "plan": "To QA when the asset APIs land (est. 9 Oct)",
-       "date": "",
+       "plan": "QA from the week of 28 Sep; store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
        "id": "5.2",
        "name": "Asset details: Info, Tickets, Timeline, MDM (hardware, software, audit, compliance)",
        "phase": "Phase 1",
-       "plan": "To QA with the list",
-       "date": "",
+       "plan": "Store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
        "id": "5.3",
        "name": "Six operations: check in, check out, loan, swap, dispose, repair (batch)",
        "phase": "Phase 1",
-       "plan": "Fix and ship with the asset release",
-       "date": "",
+       "plan": "Fix and ship in store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
        "id": "5.4",
        "name": "Add asset",
        "phase": "Phase 1",
-       "plan": "Ship",
-       "date": "",
+       "plan": "Store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
        "id": "5.5",
        "name": "Asset cost shown with exactly 2 decimals (or none)",
        "phase": "Phase 1",
-       "plan": "Fix in the asset release; also check web",
-       "date": "",
+       "plan": "Fix in store build A; also check web",
+       "date": "23 Oct 2026",
        "by": "Tanmay to file, Rony"
       },
       {
@@ -400,7 +400,7 @@ window.ROADMAP = {
        "name": "Bulk edit selected assets (with the four refusals)",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -408,7 +408,7 @@ window.ROADMAP = {
        "name": "Parts as their own record (catalogue, stock, history)",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -416,7 +416,7 @@ window.ROADMAP = {
        "name": "System views and My Views (favorites, custom)",
        "phase": "Phase 2",
        "plan": "Phase 2",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -424,7 +424,7 @@ window.ROADMAP = {
        "name": "View by Locations / by Users",
        "phase": "Phase 2",
        "plan": "Phase 2",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -432,7 +432,7 @@ window.ROADMAP = {
        "name": "Purchase orders, import from file, export and column tools, Inventory Check, Spare Pool",
        "phase": "Web only",
        "plan": "None",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]
@@ -441,7 +441,7 @@ window.ROADMAP = {
      "id": "6",
      "item": "User Explorer",
      "plan": "Phase 2. Designed; follows the web's User Explorer, which lands after 30 Oct.",
-     "date": "",
+     "date": "18 Dec 2026",
      "by": "Nadeem (web); Tanmay (mobile)",
      "items": [
       {
@@ -449,7 +449,7 @@ window.ROADMAP = {
        "name": "Search a user, see their assets and tickets (landing, groups, profile)",
        "phase": "Phase 2",
        "plan": "After the web release of 30 Oct (now 13/14 Nov); mobile follows web",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Nadeem, Tanmay"
       },
       {
@@ -457,7 +457,7 @@ window.ROADMAP = {
        "name": "Agent management / settings on the phone",
        "phase": "Not in scope",
        "plan": "None",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]
@@ -465,16 +465,16 @@ window.ROADMAP = {
     {
      "id": "7",
      "item": "High usability asset assign/deassign (camera/scanner)",
-     "plan": "Phase 1. Fix the scanner and publish a measured phone-camera vs scanner study so districts know the limits. Phase 2. Instant scan and scan confirmations.",
-     "date": "",
+     "plan": "Phase 1. Fix the scanner (store build A) and publish a measured phone-camera vs scanner study so districts know the limits. Phase 2. Instant scan and scan confirmations.",
+     "date": "Study 25 Sep 2026; fix live 23 Oct 2026; instant scan 18 Dec 2026",
      "by": "Rony; Tanmay, Rebecca (study)",
      "items": [
       {
        "id": "7.1",
        "name": "Scanner mode works reliably",
        "phase": "Phase 1",
-       "plan": "Fix with the asset release",
-       "date": "",
+       "plan": "Fix in store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       },
       {
@@ -482,7 +482,7 @@ window.ROADMAP = {
        "name": "Instant scan (continuous detect, no tap to capture)",
        "phase": "Phase 2",
        "plan": "Phase 2",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Rebecca, Rony"
       },
       {
@@ -490,7 +490,7 @@ window.ROADMAP = {
        "name": "Scan-result confirmations before an action; Missing ID filled by a scan",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -498,15 +498,15 @@ window.ROADMAP = {
        "name": "Performance study: phone camera vs dedicated scanner (item 10)",
        "phase": "Phase 1",
        "plan": "Metrics: scans per minute, first-read time, success rate by distance (0.3 / 1 / 2 m), low light, damaged or curved labels, 1D vs QR, gloves, battery per hour; test on the three cheapest district devices plus one scanner; write the limits into the app copy",
-       "date": "",
+       "date": "25 Sep 2026",
        "by": "Tanmay, Rebecca"
       },
       {
        "id": "7.5",
        "name": "Assign / deassign by scanning the badge, then the asset",
        "phase": "Phase 1",
-       "plan": "Ship with assets",
-       "date": "",
+       "plan": "Store build A",
+       "date": "23 Oct 2026",
        "by": "Rony"
       }
      ]
@@ -515,7 +515,7 @@ window.ROADMAP = {
      "id": "8",
      "item": "New Dashboard",
      "plan": "Phase 2. Service Overview on the phone once Dashboard 2.2 is live on the web. The old Android dashboards stay in the app until then.",
-     "date": "",
+     "date": "18 Dec 2026",
      "by": "Tanmay",
      "items": [
       {
@@ -523,7 +523,7 @@ window.ROADMAP = {
        "name": "Service Overview board on the phone",
        "phase": "Phase 2",
        "plan": "After Dashboard 2.2 is live on web",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -531,7 +531,7 @@ window.ROADMAP = {
        "name": "Date range and dashboard filters",
        "phase": "Phase 2",
        "plan": "With the board",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -539,15 +539,15 @@ window.ROADMAP = {
        "name": "Home / SLA Health / CSAT boards and drill-down to the inbox",
        "phase": "Phase 3+",
        "plan": "Later",
-       "date": "",
+       "date": "2027",
        "by": ""
       },
       {
        "id": "8.4",
        "name": "Old Android dashboards",
        "phase": "Phase 1",
-       "plan": "Decide: carry or drop in the Flutter build",
-       "date": "",
+       "plan": "Stay in the app until Dashboard 2.2 is live; carried into store build A",
+       "date": "23 Oct 2026",
        "by": "Tanmay"
       },
       {
@@ -555,7 +555,7 @@ window.ROADMAP = {
        "name": "Share, save, download dashboards; custom reports; comparison; fee dashboard",
        "phase": "Web only",
        "plan": "None",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]
@@ -563,16 +563,16 @@ window.ROADMAP = {
     {
      "id": "9",
      "item": "ALERTS",
-     "plan": "Phase 1. Measure and fix push delivery. Phase 2. SLA breach and critical-ticket alerts with deep links, the notification feed and settings.",
-     "date": "",
+     "plan": "Phase 1. Measure and fix push delivery (store build A). Phase 2. SLA breach and critical-ticket alerts with deep links, the notification feed and settings.",
+     "date": "Delivery measured 2 Oct 2026, fixed 23 Oct 2026; SLA alerts 18 Dec 2026",
      "by": "Tanmay, Rony; server events: eng",
      "items": [
       {
        "id": "9.1",
        "name": "Push notifications delivered reliably",
        "phase": "Phase 1",
-       "plan": "Measure delivery and latency on the QAUC build by 2 Oct; fix the pipeline in the store build",
-       "date": "",
+       "plan": "Measure delivery and latency on the QAUC build by 2 Oct; fix the pipeline in store build A",
+       "date": "23 Oct 2026",
        "by": "Tanmay, Rony"
       },
       {
@@ -580,7 +580,7 @@ window.ROADMAP = {
        "name": "SLA breach and near-breach alert to the owner and to the team's manager",
        "phase": "Phase 2",
        "plan": "Server event to push; deep link into the ticket",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Eng"
       },
       {
@@ -588,7 +588,7 @@ window.ROADMAP = {
        "name": "Critical new ticket alert",
        "phase": "Phase 2",
        "plan": "Same pipeline",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Eng"
       },
       {
@@ -596,7 +596,7 @@ window.ROADMAP = {
        "name": "Notification feed (bell) and read state",
        "phase": "Phase 2",
        "plan": "Phase 2 spec",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -604,7 +604,7 @@ window.ROADMAP = {
        "name": "Notification settings: push per event, owner vs team member",
        "phase": "Phase 2",
        "plan": "Phase 2",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Tanmay"
       },
       {
@@ -612,7 +612,7 @@ window.ROADMAP = {
        "name": "Task assigned notification (email + in-app on web next sprint, Keith 14 Sep)",
        "phase": "Phase 2",
        "plan": "Mirror on mobile when the event exists",
-       "date": "",
+       "date": "18 Dec 2026",
        "by": "Eng"
       }
      ]
@@ -621,7 +621,7 @@ window.ROADMAP = {
      "id": "10",
      "item": "Phone integration (voice calls)",
      "plan": "Phase 3. In-app dial pad for call-center agents once the telephony stack (SIP) supports it.",
-     "date": "",
+     "date": "Scoped Q1 2027; build after",
      "by": "Sarang, Tanmay",
      "items": [
       {
@@ -629,7 +629,7 @@ window.ROADMAP = {
        "name": "In-app dial pad / softphone for call-center agents",
        "phase": "Phase 3+",
        "plan": "Depends on the telephony stack (Sarang's SIP work)",
-       "date": "",
+       "date": "2027",
        "by": "Sarang, Tanmay"
       },
       {
@@ -637,7 +637,7 @@ window.ROADMAP = {
        "name": "Agent availability status from the phone",
        "phase": "Phase 3+",
        "plan": "With the softphone",
-       "date": "",
+       "date": "2027",
        "by": ""
       },
       {
@@ -645,7 +645,7 @@ window.ROADMAP = {
        "name": "Call analytics",
        "phase": "Web only",
        "plan": "None",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]
@@ -659,7 +659,7 @@ window.ROADMAP = {
      "id": "11",
      "item": "New registration",
      "plan": "Phase 3. A QR code on the district's vanity login page installs the app with the district preset. Design first, after the admin app has caught up.",
-     "date": "",
+     "date": "Design Q1 2027; build Q2 2027",
      "by": "Rebecca, Tanmay",
      "items": [
       {
@@ -667,7 +667,7 @@ window.ROADMAP = {
        "name": "QR code on the district's vanity login page that installs the app and passes the district",
        "phase": "Phase 3+",
        "plan": "Design first; needs a deep-link scheme and a district variable",
-       "date": "",
+       "date": "2027",
        "by": "Rebecca, Tanmay"
       },
       {
@@ -675,7 +675,7 @@ window.ROADMAP = {
        "name": "Join the portal and register from the app",
        "phase": "Phase 3+",
        "plan": "With the above",
-       "date": "",
+       "date": "2027",
        "by": "Rebecca"
       },
       {
@@ -683,7 +683,7 @@ window.ROADMAP = {
        "name": "SSO pass-through when embedded in a district's own app",
        "phase": "Phase 3+",
        "plan": "Investigate SDK / deep-link hand-off",
-       "date": "",
+       "date": "2027",
        "by": "Tanmay"
       }
      ]
@@ -692,7 +692,7 @@ window.ROADMAP = {
      "id": "12",
      "item": "Portal",
      "plan": "Phase 3. A slim native portal app with branding and login rules synced from the web. Until then the portal's responsive web version, already live, is the phone experience.",
-     "date": "",
+     "date": "Design Q1 2027; build Q2 2027",
      "by": "Rebecca (design); eng (config API)",
      "items": [
       {
@@ -700,7 +700,7 @@ window.ROADMAP = {
        "name": "Portal on a phone via the responsive web",
        "phase": "Done",
        "plan": "Keep as the interim",
-       "date": "",
+       "date": "Done",
        "by": ""
       },
       {
@@ -708,7 +708,7 @@ window.ROADMAP = {
        "name": "Native customer portal app (Flutter, slim)",
        "phase": "Phase 3+",
        "plan": "Design after the agent app catches up",
-       "date": "",
+       "date": "2027",
        "by": "Rebecca"
       },
       {
@@ -716,7 +716,7 @@ window.ROADMAP = {
        "name": "Branding and configuration sync from the web portal (logo, guest access, chatbot on/off, vanity login rules)",
        "phase": "Phase 3+",
        "plan": "Required for the app, else two configs",
-       "date": "",
+       "date": "2027",
        "by": "Eng"
       },
       {
@@ -724,7 +724,7 @@ window.ROADMAP = {
        "name": "Embed the portal inside a district's own app",
        "phase": "Phase 3+",
        "plan": "After the native app",
-       "date": "",
+       "date": "2027",
        "by": ""
       }
      ]
@@ -733,7 +733,7 @@ window.ROADMAP = {
      "id": "13",
      "item": "Onflo chatbot",
      "plan": "Phase 3. Dockable chatbot in the portal app; scope together with the web portal, which has no chatbot today.",
-     "date": "",
+     "date": "Q2 2027, with the portal app",
      "by": "Sarang, Rebecca",
      "items": [
       {
@@ -741,7 +741,7 @@ window.ROADMAP = {
        "name": "Dockable chatbot inside the portal app",
        "phase": "Phase 3+",
        "plan": "Scope for the web portal and the app together",
-       "date": "",
+       "date": "2027",
        "by": "Sarang, Rebecca"
       }
      ]
@@ -750,7 +750,7 @@ window.ROADMAP = {
      "id": "14",
      "item": "Access to Flo",
      "plan": "Phase 3. Talk to Flo by voice from the app, replacing dial-in, using the chatbot profiles districts already configure; the web portal gets the same.",
-     "date": "",
+     "date": "Q2 2027, after the AI Voice Agent work",
      "by": "Sarang",
      "items": [
       {
@@ -758,7 +758,7 @@ window.ROADMAP = {
        "name": "Talk to Flo (voice LLM) from the app, replacing dial-to-talk",
        "phase": "Phase 3+",
        "plan": "Voice mode embedded on the customer side, profile chosen by the district; the web portal too",
-       "date": "",
+       "date": "2027",
        "by": "Sarang"
       },
       {
@@ -766,7 +766,7 @@ window.ROADMAP = {
        "name": "Live chat with a live agent",
        "phase": "Phase 3+",
        "plan": "Later",
-       "date": "",
+       "date": "2027",
        "by": ""
       }
      ]
@@ -780,7 +780,7 @@ window.ROADMAP = {
      "id": "15",
      "item": "Stays on the web",
      "plan": "Settings, campaigns and grid customisation are not phone work. Listed so the list is closed.",
-     "date": "",
+     "date": "n/a",
      "by": "",
      "items": [
       {
@@ -788,7 +788,7 @@ window.ROADMAP = {
        "name": "Settings and district administration",
        "phase": "Not in scope",
        "plan": "Web",
-       "date": "",
+       "date": "n/a",
        "by": ""
       },
       {
@@ -796,7 +796,7 @@ window.ROADMAP = {
        "name": "Campaigns (dashboard, wizard, contacts, templates)",
        "phase": "Not in scope",
        "plan": "Web",
-       "date": "",
+       "date": "n/a",
        "by": ""
       },
       {
@@ -804,7 +804,7 @@ window.ROADMAP = {
        "name": "Grid customization (19 columns, density, row grouping)",
        "phase": "Not in scope",
        "plan": "Web",
-       "date": "",
+       "date": "n/a",
        "by": ""
       }
      ]

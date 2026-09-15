@@ -125,7 +125,7 @@
   @media (max-width: 900px) {
     .rm-head { display: none; }
     .rm-row { grid-template-columns: 1fr; gap: .25rem; }
-    .rm-row .when .date::before { content: 'Completed by (est.): '; font-weight: 400; color: var(--ink-2); }
+    .rm-row .when .date::before { content: 'Completed by (proposed): '; font-weight: 400; color: var(--ink-2); }
     .rm-row .when .owner::before { content: 'Owner: '; }
     .rm-items li { grid-template-columns: 1fr; } .rm-items .who, .rm-items .idate { white-space: normal; } .rm-int { grid-column: 1; }
   }
@@ -381,7 +381,7 @@
     };
     RM.apps.forEach(a => {
       root.append(el('h3', { class: 'rm-app', text: a.name }));
-      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Item' }), el('span', { text: 'Plan' }), el('span', { text: RM.datesShown ? 'Completed by (est.)' : 'Owner' })));
+      root.append(el('div', { class: 'rm-head' }, el('span', { text: 'Item' }), el('span', { text: 'Plan' }), el('span', { text: RM.datesShown ? 'Completed by (proposed)' : 'Owner' })));
       a.rows.forEach(r => {
         const when = el('div', { class: 'when' });
         if (RM.datesShown && r.date) when.append(el('div', { class: 'date', text: r.date }));
