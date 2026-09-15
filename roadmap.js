@@ -8,12 +8,12 @@ window.ROADMAP = {
   {
    "key": "Phase 1",
    "label": "Phase 1",
-   "meaning": "The Flutter store build after the October web release. Exhaustive: if it is not Phase 1, it is not in October."
+   "meaning": "Two Flutter store builds: build A on 23 Oct and build B on 20 Nov. Exhaustive: if it is not Phase 1, it is not in either build."
   },
   {
    "key": "Phase 2",
    "label": "Phase 2",
-   "meaning": "Designed or design-ready; follows a web feature in the November or December release."
+   "meaning": "Designed or design-ready; rides the December release on 18 Dec."
   },
   {
    "key": "Phase 3+",
