@@ -1,7 +1,7 @@
 // Onflo Mobile dashboard: PUBLIC roadmap data, generated from the phase list. Fields: name, phase, plan, date (estimate), by.
 // Internal columns (today, questions) live in roadmap-internal.js, which is NEVER published.
 window.ROADMAP = {
- "generated": "2026-09-15",
+ "generated": "2026-09-16",
  "datesShown": true,
  "assumption": "Proposed dates, against the revised product schedule (15 Sep): September release live 17 Oct with the web API migration, October release live 14 Nov with user management. Mobile QA starts when the September release is on UAT (week of 28 Sep). Store build A follows 17 Oct, store build B follows 14 Nov, each about a week after the web goes live. Phase 2 rides the December release.",
  "phases": [
@@ -197,7 +197,7 @@ window.ROADMAP = {
     },
     {
      "id": "4",
-     "item": "Inbox + tickets update (tasks, fees, assets, AI?)",
+     "item": "Inbox + tickets update (tasks, fees, assets, AI)",
      "plan": "Phase 1. Inbox: filters, chips, sort, saved views and keyword Advanced Search, all designed and merged; spec to engineering 25 Sep, ships in store build B. Phase 2. Ticket detail: tasks, fees, parts, AI summary, presence, roles.",
      "date": "Spec 25 Sep 2026; inbox live 20 Nov 2026; ticket detail 18 Dec 2026",
      "by": "Tanmay (spec); Rony, Hassan (build)",
