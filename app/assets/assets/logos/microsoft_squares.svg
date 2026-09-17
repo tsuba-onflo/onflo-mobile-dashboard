@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" width="21" height="21">
+  <!-- The Microsoft logo's four squares, at Microsoft's own proportions
+       (10-unit squares, 1-unit gutter) and official hexes. The squares are the
+       whole mark here: the wordmark beside them would say "Microsoft" twice,
+       since the button's own label already does. -->
+  <path fill="#F25022" d="M0 0h10v10H0z"/>
+  <path fill="#7FBA00" d="M11 0h10v10H11z"/>
+  <path fill="#00A4EF" d="M0 11h10v10H0z"/>
+  <path fill="#FFB900" d="M11 11h10v10H11z"/>
+</svg>
