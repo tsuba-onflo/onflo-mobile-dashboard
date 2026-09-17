@@ -101356,7 +101356,7 @@ h.push(A.ej(m,l.atK(a),m,B.dF,!1,m,m,m,B.ca))
 h.push(B.q)
 h.push(l.Kv(a,"Quick actions"))
 h.push(B.aa)
-h.push(A.W3(A.a([A.b9n(B.d_,"New ticket",72,new A.aIX(a),B.Ek),A.b9n(B.WS,"Scan asset",72,new A.aIY(a),B.Ej),B.acr],q),3,148))
+h.push(A.W3(A.a([A.b9n(B.d_,"New ticket",72,new A.aIX(a),B.Ek),A.b9n(B.WS,"Scan asset",72,new A.aIY(a),B.Ej),B.acr],q),3,104))
 return A.cM(B.Ld,m,A.dF(A.ch(A.anj(A.dD(h,B.Vk,!1),new A.aIZ()),i.b,!0)),B.ajP,m)},
 $S:100}
 A.aIZ.prototype={
